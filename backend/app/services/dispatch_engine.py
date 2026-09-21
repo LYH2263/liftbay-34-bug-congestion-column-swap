@@ -101,10 +101,10 @@ def congestion_split_by_floor(calls: list[CallRequest]) -> dict[int, FloorConges
         cur = floors.get(c.floor, FloorCongestion(floor=c.floor))
         if c.status == "waiting":
             floors[c.floor] = FloorCongestion(
-                c.floor, cur.waiting, cur.assigned + c.passengers
+                c.floor, cur.waiting + c.passengers, cur.assigned
             )
         elif c.status == "assigned":
             floors[c.floor] = FloorCongestion(
-                c.floor, cur.waiting + c.passengers, cur.assigned
+                c.floor, cur.waiting, cur.assigned + c.passengers
             )
     return floors
